@@ -28,6 +28,26 @@ function App() {
     }
   }
 
+  async function registerNewPart() {
+    if (!window.ethereum) {
+      alert("Metamask não encontrada!");
+      return;
+    }
+
+    try {
+      const provider = new BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const contract = new Contract(contractAddress, contractABI, signer);
+
+      const tx = await contract.registerPart("Motor V8", "Fabricante X");
+      await tx.wait();
+
+      alert("Peça registrada com sucesso!");
+    } catch (error) {
+      console.error("Erro ao registrar peça: ", error)
+    }
+  }
+
   return (
     <div>
       <h1>Rastreamento de Peças</h1>
@@ -38,6 +58,7 @@ function App() {
         onChange={(e) => setPartId(e.target.value)}
       />
       <button onClick={getPartStatus}>Buscar Status</button>
+      <button onClick={registerNewPart}>Registrar Peça</button>
       {status && <p>Status da Peça: {status}</p>}
     </div>
   );
