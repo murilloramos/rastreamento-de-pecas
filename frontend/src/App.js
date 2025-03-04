@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserProvider, Contract } from "ethers";
+import "./App.css"; // Importando o Css
 
 const contractAddress = "0x3C6c4AE9F8f27C0f54061cCA0a71Ffe44843e2A5"; // Substitua pelo endereço real do contrato
 const contractABI = require("./contractABI.json").abi; // ABI atualizado do contrato
